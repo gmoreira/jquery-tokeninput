@@ -328,9 +328,12 @@ $.TokenList = function (input, url_or_data, settings) {
                     break;
 
                 case KEY.TAB:
+                case KEY.COMMA:
+	              add_freetagging_tokens();
+	              hidden_input.change();
+	              return false;
                 case KEY.ENTER:
                 case KEY.NUMPAD_ENTER:
-                case KEY.COMMA:
                   if(selected_dropdown_item && $(selected_dropdown_item).data("tokeninput")) {
                     add_token($(selected_dropdown_item).data("tokeninput"));
                     hidden_input.change();
@@ -565,7 +568,8 @@ $.TokenList = function (input, url_or_data, settings) {
             token = $(input).data("settings").onFreeTaggingAdd.call(hidden_input, token);
           }
           var object = {};
-          object[$(input).data("settings").tokenValue] = object[$(input).data("settings").propertyToSearch] = token;
+          object[$(input).data("settings").tokenValue] = "<<<<NEW>>>>" + token;
+          object[$(input).data("settings").propertyToSearch] = token;
           add_token(object);
         });
     }
